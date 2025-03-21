@@ -27,9 +27,9 @@ transporter.verify((error, success) => {
     }
 });
 app.post('/register',async(req,res)=>{
-    const {email,password,name}=req.body;
+    const {email,name,message}=req.body;
 
-    if(!name||!email||!password)
+    if(!name||!email)
     {
         return res.status(400).json({message:"All fields are required"})
     }
@@ -38,7 +38,13 @@ app.post('/register',async(req,res)=>{
             from: process.env.EMAIL_USER,
             to: process.env.CLIENT_EMAIL,
             subject: "New User Registration",
-            text: `New Registration:\n\nName: ${name}\nEmail: ${email}\nPassword: ${password}`
+            text: `New Registration:\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`
+        })
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: "New User Registration",
+            text: `Hello ${name} welcome to spydernet`
         })
     }
     catch (error) {
