@@ -46,6 +46,7 @@ app.post('/register',async(req,res)=>{
             subject: "New User Registration",
             text: `Hello ${name} welcome to spydernet`
         })
+        res.status(200).json({ message: "Registration successful! Email sent." });
     }
     catch (error) {
         res.status(500).json({ message: "Error sending email", error });
