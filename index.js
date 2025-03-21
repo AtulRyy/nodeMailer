@@ -13,10 +13,12 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
 const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "fcg.spydernet.in", // Replace with your Webmail SMTP server
+    port: 465, // Use 587 for TLS, or 465 for SSL
+    secure: true, // true for SSL, false for TLS
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+        user: process.env.EMAIL_USER, // Your Webmail email (e.g., info@yourdomain.com)
+        pass: process.env.EMAIL_PASS // Your email password
     }
 });
 transporter.verify((error, success) => {
@@ -46,6 +48,8 @@ app.post('/register',async(req,res)=>{
             subject: "New User Registration",
             text: `Hello ${name} welcome to spydernet`
         })
+        console.log("Registration successful! Email sent.");
+        
         res.status(200).json({ message: "Registration successful! Email sent." });
     }
     catch (error) {
