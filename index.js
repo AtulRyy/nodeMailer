@@ -13,9 +13,9 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
 const transporter = nodemailer.createTransport({
-    host: "fcg.spydernet.in", // Replace with your Webmail SMTP server
-    port: 465, // Use 587 for TLS, or 465 for SSL
-    secure: true, // true for SSL, false for TLS
+    host: "us2.smtp.mailhostbox.com", // Replace with your Webmail SMTP server
+    port: 587, // Use 587 for TLS, or 465 for SSL
+    secure: false, // true for SSL, false for TLS
     auth: {
         user: process.env.EMAIL_USER, // Your Webmail email (e.g., info@yourdomain.com)
         pass: process.env.EMAIL_PASS // Your email password
@@ -46,7 +46,14 @@ app.post('/register',async(req,res)=>{
             from: process.env.EMAIL_USER,
             to: email,
             subject: "New User Registration",
-            text: `Hello ${name} welcome to spydernet`
+            text: `Hello ${name} Welcome to Funded Capital Group\n`,
+            attachments: [
+                {
+                    filename: 'welcome.jpg', // Name of the file when received
+                    path: './welcome.PNG', // Path to your image file
+                    cid: 'unique@spydernet' // Unique ID for referencing in HTML if needed
+                }
+            ]
         })
         console.log("Registration successful! Email sent.");
         
