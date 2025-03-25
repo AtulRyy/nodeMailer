@@ -66,6 +66,11 @@ app.post('/register', async (req, res) => {
                         info@fundedcapitalgroup.com
                     </a>
                 </div>
+                <div style="text-align: center; margin-top: 20px; ">
+                    <a href="https://fundedcapitalgroup.com" style="font-size: 18px; text-decoration: none; color: #007bff;">
+                        www.fundedcapitalgroup.com
+                    </a>
+                </div>
 
             `,
             attachments: [
