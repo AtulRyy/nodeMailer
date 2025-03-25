@@ -46,9 +46,15 @@ app.post('/register', async (req, res) => {
             to: email,
             subject: "New User Registration",
             html: `
-                <h2>Hello <b>${name}</b>,</h2>
-                <img src="cid:unique@spydernet" alt="Welcome Image" style="width:100%; max-width:600px;"/>
-                <a href="mailto:info@fundedcapitalgroup.com">info@fundedcapitalgroup.com</a>
+                <div style="text-align: center;">
+                    <h2 style="font-size: clamp(32px, 5vw, 70px); margin-bottom: 15px;">Hello <b>${name}</b>,</h2>
+                    <img src="cid:unique@spydernet" alt="Welcome Image" style="width:100%; max-width:600px;"/>
+                </div>
+                <div style="text-align: center; margin-top: 20px; ">
+                    <a href="mailto:info@fundedcapitalgroup.com" style="font-size: 18px; text-decoration: none; color: #007bff;">
+                        info@fundedcapitalgroup.com
+                    </a>
+                </div>
 
             `,
             attachments: [
