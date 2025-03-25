@@ -46,7 +46,7 @@ app.post('/register', async (req, res) => {
             to: email,
             subject: "New User Registration",
             html: `
-                <p>Hello ${name},</p>
+                <h2>Hello <b>${name}</b>,</h2>
                 <p>Welcome to <b>Funded Capital Group</b>!</p>
                 <img src="cid:unique@spydernet" alt="Welcome Image" style="width:100%; max-width:600px;"/>
             `,
