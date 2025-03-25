@@ -28,9 +28,20 @@ transporter.verify((error, success) => {
         console.log("Email Server Ready ✅");
     }
 });
+
+function capitalizeName(name) {
+    return name
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+  
+  // Example usage:
+
 app.post('/register', async (req, res) => {
     const { email, name, message } = req.body;
-
+    const name1=capitalizeName(name)
     if (!name || !email) {
         return res.status(400).json({ message: "All fields are required" })
     }
@@ -39,7 +50,7 @@ app.post('/register', async (req, res) => {
             from: process.env.EMAIL_USER,
             to: process.env.CLIENT_EMAIL,
             subject: "New User Registration",
-            text: `New Registration:\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`
+            text: `New Registration:\n\nName: ${name1}\nEmail: ${email}\nMessage: ${message}`
         })
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
@@ -47,7 +58,7 @@ app.post('/register', async (req, res) => {
             subject: "New User Registration",
             html: `
                 <div style="text-align: center;">
-                    <h2 style="font-size: clamp(32px, 5vw, 70px); margin-bottom: 15px;">Hello <b>${name}</b>,</h2>
+                    <h2 style="font-size: clamp(32px, 5vw, 70px); margin-bottom: 15px;">Hello <b>${name1}</b>,</h2>
                     <img src="cid:unique@spydernet" alt="Welcome Image" style="width:100%; max-width:600px;"/>
                 </div>
                 <div style="text-align: center; margin-top: 20px; ">
