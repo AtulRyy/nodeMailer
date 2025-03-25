@@ -1,15 +1,15 @@
-const express=require('express')
+const express = require('express')
 require('dotenv').config()
-const nodemailer=require('nodemailer')
-const bodyParser=require('body-parser')
-const cors= require('cors')
+const nodemailer = require('nodemailer')
+const bodyParser = require('body-parser')
+const cors = require('cors')
 
-const app=express()
-const PORT=process.env.PORT || 5000
+const app = express()
+const PORT = process.env.PORT || 5000
 
 app.use(cors())
 app.use(express.static("public"))
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 const transporter = nodemailer.createTransport({
@@ -28,14 +28,13 @@ transporter.verify((error, success) => {
         console.log("Email Server Ready ✅");
     }
 });
-app.post('/register',async(req,res)=>{
-    const {email,name,message}=req.body;
+app.post('/register', async (req, res) => {
+    const { email, name, message } = req.body;
 
-    if(!name||!email)
-    {
-        return res.status(400).json({message:"All fields are required"})
+    if (!name || !email) {
+        return res.status(400).json({ message: "All fields are required" })
     }
-    try{
+    try {
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
             to: process.env.CLIENT_EMAIL,
@@ -46,7 +45,11 @@ app.post('/register',async(req,res)=>{
             from: process.env.EMAIL_USER,
             to: email,
             subject: "New User Registration",
-            text: `Hello ${name} Welcome to Funded Capital Group\n`,
+            html: `
+                <p>Hello ${name},</p>
+                <p>Welcome to <b>Funded Capital Group</b>!</p>
+                <img src="cid:unique@spydernet" alt="Welcome Image" style="width:100%; max-width:600px;"/>
+            `,
             attachments: [
                 {
                     filename: 'welcome.jpg', // Name of the file when received
@@ -56,7 +59,7 @@ app.post('/register',async(req,res)=>{
             ]
         })
         console.log("Registration successful! Email sent.");
-        
+
         res.status(200).json({ message: "Registration successful! Email sent." });
     }
     catch (error) {
@@ -65,6 +68,6 @@ app.post('/register',async(req,res)=>{
 
 })
 
-app.listen(PORT,()=>{
+app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 })
