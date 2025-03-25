@@ -55,7 +55,7 @@ app.post('/register', async (req, res) => {
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
             to: email,
-            subject: "New User Registration",
+            subject: "Welcome To Funded Capital!",
             html: `
                 <div style="text-align: center;">
                     <h2 style="font-size: clamp(32px, 5vw, 70px); margin-bottom: 15px;">Hello <b>${name1}</b>,</h2>
