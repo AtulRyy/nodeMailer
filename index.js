@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 const transporter = nodemailer.createTransport({
-    host: "us2.smtp.mailhostbox.com", // Replace with your Webmail SMTP server
+    host: "smtp.hostinger.com", // Replace with your Webmail SMTP server
     port: 587, // Use 587 for TLS, or 465 for SSL
     secure: false, // true for SSL, false for TLS
     auth: {
