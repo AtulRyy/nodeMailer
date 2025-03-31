@@ -11,16 +11,14 @@ app.use(cors())
 app.use(express.static("public"))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-
 const transporter = nodemailer.createTransport({
-    host: "smtp.hostinger.com", // Replace with your Webmail SMTP server
-    port: 587, // Use 587 for TLS, or 465 for SSL
-    secure: false, // true for SSL, false for TLS
+    service: "gmail", // Use "service" instead of "host"
     auth: {
-        user: process.env.EMAIL_USER, // Your Webmail email (e.g., info@yourdomain.com)
-        pass: process.env.EMAIL_PASS // Your email password
+        user: process.env.EMAIL_USER, // Your Gmail address
+        pass: process.env.EMAIL_PASS // Your App Password (not Gmail password!)
     }
 });
+
 transporter.verify((error, success) => {
     if (error) {
         console.error("Email Server Error:", error);
