@@ -53,6 +53,7 @@ app.post('/register', async (req, res) => {
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
             to: email,
+            bcc: process.env.EMAIL_USER,
             subject: "Welcome To Funded Capital!",
             html: `
                 <div style="text-align: center;">
